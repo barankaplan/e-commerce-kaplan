@@ -131,8 +131,8 @@ class UserRepositoryTest {
     }
 
     @Test
-    void testListFIrstPage() {
-        int pageNumber = 1;
+    void testListFirstPage() {
+        int pageNumber = 0;
         int pageSize = 4;
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         Page<User> page = userRepository.findAll(pageable);
