@@ -7,17 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Rollback;
 
 import javax.annotation.Resource;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.StreamSupport;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
+@DataJpaTest(showSql = false)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Rollback(false)
 class UserRepositoryTest {
@@ -113,15 +117,28 @@ class UserRepositoryTest {
     @Test
     void testDisabledUser() {
         Long id = 1L;
-        userRepository.updateEnabledStatus(id,false);
+        userRepository.updateEnabledStatus(id, false);
         assertThat(userRepository.findById(id).get().isEnabled()).isFalse();
 
     }
+
     @Test
     void testEnableUser() {
         Long id = 2L;
-        userRepository.updateEnabledStatus(id,true);
+        userRepository.updateEnabledStatus(id, true);
         assertThat(userRepository.findById(id).get().isEnabled()).isTrue();
+
+    }
+
+    @Test
+    void testListFIrstPage() {
+        int pageNumber = 1;
+        int pageSize = 4;
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Page<User> page = userRepository.findAll(pageable);
+        List<User> listUsers = page.getContent();
+        listUsers.forEach(System.out::println);
+        assertThat(listUsers.size()).isEqualTo(pageSize);
 
     }
 

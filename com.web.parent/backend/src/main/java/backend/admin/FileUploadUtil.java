@@ -25,4 +25,26 @@ public class FileUploadUtil {
             throw new IOException("Could not save file: "+fileName,ex);
         }
     }
+    public static void cleanDir(String dir){
+        Path dirPath = Paths.get(dir);
+
+        try{
+            Files.list(dirPath).forEach(
+                    file-> {
+                        if (!Files.isDirectory(file)) {
+                            try {
+                                Files.delete(file);
+                            } catch (IOException e) {
+                                System.out.println("couldn't delete the file " +file);
+                            }
+                        }
+                    }
+            );
+        }catch (IOException ioException){
+            System.out.println("couldn't list directory!");
+        }
+    }
+
+
+
 }

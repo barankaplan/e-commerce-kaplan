@@ -5,6 +5,9 @@ import backend.admin.user.repository.RoleRepository;
 import backend.admin.user.repository.UserRepository;
 import common.data.entity.Role;
 import common.data.entity.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private static final int USERS_PER_PAGE=4;
 
     public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
@@ -28,6 +32,11 @@ public class UserService {
 
     public List<User> listAll() {
         return userRepository.findAll();
+    }
+
+    public Page<User> listByPage(int pageNumber){
+        Pageable pageable= PageRequest.of(pageNumber-1,USERS_PER_PAGE);
+        return userRepository.findAll(pageable);
     }
 
     public List<Role> listRoles() {
