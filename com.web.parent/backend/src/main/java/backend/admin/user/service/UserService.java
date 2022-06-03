@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -44,10 +45,13 @@ public class UserService {
 //        return userRepository.findAll(pageable);
 //    }
 
-    public Page<User> listByPage(int pageNumber, String sortField, String sortDir) {
+    public Page<User> listByPage(int pageNumber, String sortField, String sortDir, String keyword) {
         Sort sort = Sort.by(sortField);
         sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
         Pageable pageable = PageRequest.of(pageNumber - 1, USERS_PER_PAGE, sort);
+        if (keyword != null) {
+            return userRepository.findAll(keyword.toLowerCase(Locale.ROOT), pageable);
+        }
         return userRepository.findAll(pageable);
     }
 

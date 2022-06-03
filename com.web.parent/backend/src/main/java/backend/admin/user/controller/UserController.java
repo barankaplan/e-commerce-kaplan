@@ -45,8 +45,10 @@ public class UserController {
         //http://127.0.0.1:8080/KaplanShopAdmin/users/page/1?sortField=email&sortDir=asc
         //http://127.0.0.1:8080/KaplanShopAdmin/users/page/3?sortField=firstName&sortDir=desc
         //http://127.0.0.1:8080/KaplanShopAdmin/users/page/1?sortField=email&sortDir=asc
-        return listByPage(1, model,"firstName","asc");
+        //http://127.0.0.1:8080/KaplanShopAdmin/users/page/1?sortField=email&sortDir=asc&keyword=bruce
+        return listByPage(1, model,"firstName","asc",null);
         //return listByPage(1, model,"email","asc");
+
 
     }
 
@@ -134,11 +136,12 @@ public class UserController {
 
     @GetMapping("/users/page/{pageNum}")
     public String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model,
-                             @Param("sortField")String sortField, @Param("sortDir")String sortDir) {
+                             @Param("sortField")String sortField, @Param("sortDir")String sortDir,
+                             @Param("keyword")String keyword) {
 
         System.out.println("Sort Field: "+ sortField);
         System.out.println("Sort Order: "+ sortDir);
-        Page<User> page = userService.listByPage(pageNum,sortField,sortDir);
+        Page<User> page = userService.listByPage(pageNum,sortField,sortDir,keyword);
         List<User> listUsers = page.getContent();
 
 //        System.out.println("Page Number = "+pageNum);
@@ -161,6 +164,7 @@ public class UserController {
         model.addAttribute("listUsers", listUsers);
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDir", sortDir);
+        model.addAttribute("keyword", keyword);
         String reverseSortDir=sortDir.equals("asc")?"desc":"asc";
         model.addAttribute("reverseSortDir", reverseSortDir);
         return "users";
