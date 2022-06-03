@@ -84,18 +84,19 @@
         <table class="table table-bordered table-striped table-hover table-responsive-xl">
             <thead class="thead-dark">
             <tr>
-                <th>
-                    <a th:if="${sortField != 'id'}" class="text-white"
-                       th:href="@{'/users/page/' +${currentPage} +'?sortField=id&sortDir=' +${sortDir} +${keyword != null ?
-                       '&keyword='+ keyword : ' '}}">
-                        User ID</a>
-                    <a th:if="${sortField == 'id'}"
-                       th:href="@{'/users/page/' +${currentPage} +'?sortField=id&sortDir=' +${reverseSortDir}+ ${keyword != null ?
-                       '&keyword='+ keyword : ' '}}">
-                        User ID</a>
-                    <span th:if="${sortField == 'id'}" class="text-white"
-                          th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
-                </th>
+<!--                <th>-->
+<!--                    <a th:if="${sortField != 'id'}" class="text-white"-->
+<!--                       th:href="@{'/users/page/' +${currentPage} +'?sortField=id&sortDir=' +${sortDir} +${keyword != null ?-->
+<!--                       '&keyword='+ keyword : ' '}}">-->
+<!--                        User ID</a>-->
+<!--                    <a th:if="${sortField == 'id'}"-->
+<!--                       th:href="@{'/users/page/' +${currentPage} +'?sortField=id&sortDir=' +${reverseSortDir}+ ${keyword != null ?-->
+<!--                       '&keyword='+ keyword : ' '}}">-->
+<!--                        User ID</a>-->
+<!--                    <span th:if="${sortField == 'id'}" class="text-white"-->
+<!--                          th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>-->
+                <th th:replace="fragments :: column_link('id','User ID')"></th>
+
                 <th>Photos
                 </th>
                 <th>
