@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
@@ -175,6 +176,23 @@ public class UserController {
         return "users";
 
     }
+
+    @GetMapping("/users/export/csv")
+    public void exportToCSV(HttpServletResponse httpServletResponse) throws IOException {
+        List<User> listUsers= userService.listAll();
+        UserCsvExporter exporter =new UserCsvExporter();
+        exporter.export(listUsers,httpServletResponse);
+
+    }
+    @GetMapping("/users/export/excel")
+    public void exportToExcel(HttpServletResponse httpServletResponse) throws IOException {
+        List<User> listUsers= userService.listAll();
+        UserExcelExporter exporter =new UserExcelExporter();
+        exporter.export(listUsers,httpServletResponse);
+
+    }
+
+
 
 
 }

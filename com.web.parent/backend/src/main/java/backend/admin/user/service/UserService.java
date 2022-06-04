@@ -37,7 +37,7 @@ public class UserService {
     }
 
     public List<User> listAll() {
-        return userRepository.findAll();
+        return userRepository.findAll(Sort.by("firstName"));
     }
 
 //    public Page<User> listByPage(int pageNumber){
