@@ -22,7 +22,7 @@ public class Role {
     @Column(name = "role_id", nullable = false)
     private Long id;
 
-        @Column(nullable = false, unique = true, length = 40)
+    @Column(nullable = false, unique = true, length = 40)
     private String name;
 
     @Column(nullable = false, length = 150)
@@ -58,8 +58,6 @@ public class Role {
 
     @Override
     public String toString() {
-        return "Role{" +
-                "name='" + name + '\'' +
-                '}';
+        return name;
     }
 }

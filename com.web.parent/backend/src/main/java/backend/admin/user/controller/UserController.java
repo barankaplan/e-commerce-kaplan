@@ -6,7 +6,6 @@ import backend.admin.user.service.UserNotFoundException;
 import backend.admin.user.service.UserService;
 import common.data.entity.Role;
 import common.data.entity.User;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -21,7 +20,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 
 @Controller
@@ -88,7 +86,14 @@ public class UserController {
 
         redirectAttributes.addFlashAttribute("message", "The user has been saved successfully !");
 
-        return "redirect:/users";
+//        return "redirect:/users";
+
+        return getRedirectURLtoAffectedUser(user);
+    }
+
+    private String getRedirectURLtoAffectedUser(User user) {
+        String firstPartOfEmail= user.getEmail().split("@")[0];
+        return "redirect:/users/page/1?sortField=id&sortDir=asc&keyword=" + firstPartOfEmail;
     }
 
     @GetMapping("/users/edit/{user_id}")
