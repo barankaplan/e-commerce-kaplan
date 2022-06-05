@@ -91,25 +91,28 @@
         <table class="table table-bordered table-striped table-hover table-responsive-xl">
             <thead class="thead-dark">
             <tr>
-                <th th:replace="fragments :: column_link('id','User ID')"></th>
-                <th>Photos
+                <th class="hideAble-column">
+                <th th:replace="fragments :: column_link('id','User ID','tag')"/>
                 </th>
-                <th th:replace="fragments :: column_link('email','e-Mail')"></th>
-                <th th:replace="fragments :: column_link('firstName','First Name')"></th>
-                <th th:replace="fragments :: column_link('lastName','Last Name')"></th>
-                <th th:replace="fragments :: column_link('roles','Roles')"></th>
-                <th th:replace="fragments :: column_link('enabled','Enabled')"></th>
+                <th>Photos</th>
+                <th class="hideAble-column">
+                <th th:replace="fragments :: column_link('email','e-Mail','tag')"/>
+                </th>
+                <th th:replace="fragments :: column_link('firstName','First Name','none')"/>
+                <th th:replace="fragments :: column_link('lastName','Last Name','none')"/>
+                <th>Roles</th>
+                <th th:replace="fragments :: column_link('enabled','Enabled','none')"/>
                 <th></th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="user : ${listUsers}">
-                <td>[[${user.id}]]</td>
+                <td class="hideAble-column">[[${user.id}]]</td>
                 <td>
                     <span th:if="${user.photos==null}" class="fa-solid fa-image-portrait fa-3x icon-silver"></span>
                     <img th:if="${user.photos!=null}" th:src="@{${user.photosImagePath}} " style="width: 100px"/>
                 </td>
-                <td>[[${user.email}]]</td>
+                <td class="hideAble-column">[[${user.email}]]</td>
                 <td>[[${user.firstName}]]</td>
                 <td>[[${user.lastName}]]</td>
                 <td>[[${user.roles}]]</td>

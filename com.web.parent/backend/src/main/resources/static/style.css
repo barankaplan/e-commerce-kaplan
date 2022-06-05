@@ -15,12 +15,13 @@
     /*medium screen*/
     div.full-details{display: block;}
     div.less-details{display: none;}
-
+    .hideAble-column{ display: none}
 
 }
 
 @media screen and (min-width: 1024px){
     /*wide screen*/
     div.less-details{display: none;}
+    .hideAble-column{ display: table-cell}
 
 }
