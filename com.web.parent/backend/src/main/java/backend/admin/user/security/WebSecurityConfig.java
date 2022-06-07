@@ -24,7 +24,6 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
-
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setUserDetailsService(userDetailsService());
@@ -49,12 +48,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().authenticated()
+        http.authorizeRequests().antMatchers("/users/**").hasAnyAuthority("Admin")
+                .anyRequest().authenticated()
                 .and().formLogin().loginPage("/login")
                 .usernameParameter("email")
                 .permitAll().and().logout().permitAll()
                 .and().rememberMe().key("abcdefg_123456789")
-                .tokenValiditySeconds(60*60*5);
+                .tokenValiditySeconds(60 * 60 * 5);
     }
 
     @Override

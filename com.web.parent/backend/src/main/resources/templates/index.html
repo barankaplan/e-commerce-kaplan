@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org"
       xmlns:sec="https://thymeleaf.org/thymeleaf-extras-springsecurity5">
-<head th:replace="fragments :: page_head('Home - Kaplan Shop Admin Control Panel')" />
+<head th:replace="fragments :: page_head('Home - Kaplan Shop Admin Control Panel')"/>
 
 <body>
 <div class="container-fluid">
@@ -9,6 +9,10 @@
     <div th:replace="navigation :: menu"></div>
     <div>
         <h1> Kaplan Shop Admin Control Panel</h1>
+        Welcome
+        <a th:href="@{/account}"
+           sec:authentication="principal.fullName"></a>
+        <span sec:authentication="principal.authorities"></span>
     </div>
     <div th:replace="fragments :: footer"></div>
 
