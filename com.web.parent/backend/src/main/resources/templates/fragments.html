@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+
+<head th:fragment="page_head(title)">
+    <meta http-equiv="content-type" content="text/html" charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+    <title>[[${title}]]</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+</head>
 <body>
 <th th:fragment="column_link(fieldName,columnLabel,removeTag)" th:remove="${removeTag}">
     <a class="text-white"
@@ -17,5 +29,11 @@
    class="page-link"
    th:href="@{'/users/page/' +${pageNum} + '?sortField=' +${sortField} +'&sortDir=' +${sortDir} +${keyword != null ?
                        '&keyword='+ keyword : ' '}}">[[${label}]]</a>
+
+
+<div th:fragment="footer" class="text-center m-3">
+    <p> Kaplan Shop Admin Control Panel - Copyright &copy; Kaplan Shop</p>
+</div>
+
 </body>
 </html>
