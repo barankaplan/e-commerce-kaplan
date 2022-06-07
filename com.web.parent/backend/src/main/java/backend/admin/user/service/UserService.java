@@ -40,6 +40,20 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public User updateAccount(User userInForm){
+       User user= userRepository.findById(userInForm.getId()).get();
+       if (!userInForm.getPassword().isEmpty()){
+           user.setPassword(userInForm.getPassword());
+           encodePassword(user);
+       }
+        if (userInForm.getPhotos() != null){
+            user.setPhotos(userInForm.getPhotos());
+        }
+        user.setFirstName(userInForm.getFirstName());
+        user.setLastName(userInForm.getLastName());
+        return userRepository.save(user);
+    }
+
     public List<User> listAll() {
         return userRepository.findAll(Sort.by("firstName"));
     }
