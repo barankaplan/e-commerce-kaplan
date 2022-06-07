@@ -29,6 +29,10 @@ public class UserService {
     public int getUsersPerPage() {
         return USERS_PER_PAGE;
     }
+    public Optional<User> getByEmail(String email){
+        return userRepository.getUserByEmail(email);
+    }
+
 
     public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;

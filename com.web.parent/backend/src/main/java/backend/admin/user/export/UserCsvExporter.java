@@ -1,5 +1,6 @@
-package backend.admin.user.controller;
+package backend.admin.user.export;
 
+import backend.admin.user.controller.AbstractExporter;
 import common.data.entity.User;
 import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
