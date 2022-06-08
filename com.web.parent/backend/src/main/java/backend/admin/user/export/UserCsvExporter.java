@@ -1,19 +1,10 @@
 package backend.admin.user.export;
 
-import backend.admin.user.controller.AbstractExporter;
 import common.data.entity.User;
-import org.supercsv.io.CsvBeanWriter;
-import org.supercsv.io.ICsvBeanWriter;
-import org.supercsv.prefs.CsvPreference;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.function.IntConsumer;
-import java.util.stream.IntStream;
 
 public class UserCsvExporter extends AbstractExporter {
 

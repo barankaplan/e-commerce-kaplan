@@ -8,7 +8,7 @@
 
     <form th:action="@{/account/update}" method="post" style="max-width: 700px;margin: 0 auto"
           enctype="multipart/form-data"
-          th:object="${user}" >
+          th:object="${user}">
         <input type="hidden" th:field="*{id}"/>
         <div class="text-center">
             <h2>Your Account Details</h2>
@@ -40,19 +40,19 @@
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Password:</label>
                 <div class="col-sm-8">
-                    <input type="password" th:field="*{password}"  class="form-control"
-                    placeholder="Leave this are blank if you don't want to change the password !"
-                            minlength="8"
+                    <input type="password" th:field="*{password}" class="form-control"
+                           placeholder="Leave this are blank if you don't want to change the password !"
+                           minlength="8"
                            maxlength="20"
                            oninput="checkPasswordMatch(document.getElementById('confirmPassword'))"
                     />
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Confirm  Password:</label>
+                <label class="col-sm-4 col-form-label">Confirm Password:</label>
                 <div class="col-sm-8">
                     <input type="password" id="confirmPassword" class="form-control"
-                            minlength="8"
+                           minlength="8"
                            maxlength="20"
                            oninput="checkPasswordMatch(this)"
                     />
@@ -70,7 +70,7 @@
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Photos :</label>
                 <div class="col-sm-8">
-                    <input type="hidden" th:field="*{photos}" >
+                    <input type="hidden" th:field="*{photos}">
                     <input type="file" id="fileImage" name="image" accept="image/png, image/jpeg,image/jpg"
                            class="mb-2"/>
 
@@ -86,73 +86,23 @@
         </div>
     </form>
 
-    <div class="modal fade text-center" id="modalDialog">
-        <div class="model-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="modalTitle">Warning</h4>
-                    <button id="buttonCancel2" type="button" class="close" data-bs-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <span id="modalBody"></span>
-                </div>
-                <div class="modal-footer">
-                    <button id="buttonCancel3" type="button" class="btn btn-danger" data-bs-dismiss="modal">Close
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div th:replace="fragments :: footer"></div>
 
 </div>
 <script type="text/javascript">
-    $(document).ready(function () {
-        $("#buttonCancel").on("click", function () {
-            window.location = "[[@{/users}]]";
-        });
-        $("#fileImage").change(function () {
-            fileSize = this.files[0].size;
-            // alert("File size: " + fileSize);
-            if (fileSize > 1048576) {
-                this.setCustomValidity("you must choose an image less than 1 mb");
-                this.reportValidity();
-            } else {
-                this.setCustomValidity("");
-                showImageThumbnail(this);
-            }
-            // showImageThumbnail(this);
-        })
-    });
-    $(document).ready(function () {
-        $("#buttonCancel2").on("click", function () {
-            window.location = "[[@{/users}]]";
-        });
-    });
-    $(document).ready(function () {
-        $("#buttonCancel3").on("click", function () {
-            window.location = "[[@{/users}]]";
-        });
-    });
-
-    function showImageThumbnail(fileInput) {
-        var file = fileInput.files[0];
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            $("#thumbnail").attr("src", e.target.result);
-        };
-        reader.readAsDataURL(file);
-    }
-
-    function checkPasswordMatch(confirmPassword){
-        if(confirmPassword.value != $("#password").val()){
+    moduleURL = "[[@{/users}]]";
+    function checkPasswordMatch(confirmPassword) {
+        if (confirmPassword.value != $("#password").val()) {
             confirmPassword.setCustomValidity("Passwords do not match!")
-        }else{
+        } else {
             confirmPassword.setCustomValidity("")
 
         }
     }
+
+</script>
+<script th:src="@{/js/common_form.js}">
 
 </script>
 </body>

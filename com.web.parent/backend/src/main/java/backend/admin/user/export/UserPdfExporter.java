@@ -1,6 +1,5 @@
 package backend.admin.user.export;
 
-import backend.admin.user.controller.AbstractExporter;
 import com.lowagie.text.*;
 import com.lowagie.text.Font;
 import com.lowagie.text.pdf.*;
