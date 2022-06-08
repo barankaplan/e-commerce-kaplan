@@ -14,8 +14,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Rollback(false)
 class PasswordEncoderTest {
 
+
+
     @Test
-    void testEncoderpassword() {
+    void testEncoderPassword() {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         String rawPassword = "kaplan22";
         String encodedPassword = bCryptPasswordEncoder.encode(rawPassword);
