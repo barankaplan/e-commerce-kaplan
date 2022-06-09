@@ -1,7 +1,6 @@
 package backend.admin.user.repository;
 
 import common.data.entity.Category;
-import org.apache.commons.compress.archivers.cpio.CpioArchiveEntry;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -95,8 +94,8 @@ class CategoryRepositoryTest {
 
 
     @Test
-    public void testListRootCategories(){
-        List<Category> rootCategories = categoryRepository.listRootCategories();
+     void testListRootCategories(){
+        List<Category> rootCategories = categoryRepository.findRootCategories();
         rootCategories.forEach(cat -> System.out.println(cat.getName()));
     }
 

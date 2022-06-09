@@ -69,4 +69,20 @@ public class Category {
         category1.setName(name);
         return category1;
     }
+
+    public static Category copyFull(Category category) {
+        Category category1= new Category();
+        category1.setCategory_id(category.getCategory_id());
+        category1.setName(category.getName());
+        category1.setImage(category.getImage());
+        category1.setAlias(category.getAlias());
+        category1.setEnabled(category.isEnabled());
+        return category1;
+    }
+
+    public static Category copyFull(Category category,String name) {
+        Category copyCategory= copyFull(category);
+        copyCategory.setName(name);
+        return copyCategory;
+    }
 }
