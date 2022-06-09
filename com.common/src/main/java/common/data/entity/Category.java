@@ -56,4 +56,17 @@ public class Category {
 
     public Category() {
     }
+
+    public static Category copyIdAndName(Category category) {
+        Category category1= new Category();
+        category1.setCategory_id(category.getCategory_id());
+        category1.setName(category.getName());
+        return category1;
+    }
+    public static Category copyIdAndName(Long id, String name) {
+        Category category1= new Category();
+        category1.setCategory_id(id);
+        category1.setName(name);
+        return category1;
+    }
 }

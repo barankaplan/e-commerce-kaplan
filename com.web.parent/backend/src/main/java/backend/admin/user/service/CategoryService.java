@@ -35,7 +35,7 @@ public class CategoryService {
                 for (Category subcategory : children
                 ) {
                     String name = "--" + subcategory.getName();
-                    categoriesUsedInForm.add(new Category(name));
+                    categoriesUsedInForm.add(Category.copyIdAndName(category.getCategory_id(),name));
                     listChildren(categoriesUsedInForm,subcategory, 1);
                 }
             }
@@ -54,7 +54,7 @@ public class CategoryService {
                 name += "--";
             }
             name += subCategory.getName();
-            categoriesUsedInForm.add(new Category(name));
+            categoriesUsedInForm.add(Category.copyIdAndName(subCategory.getCategory_id(),name));
             listChildren(categoriesUsedInForm, subCategory, newSubLevel);
         }
     }

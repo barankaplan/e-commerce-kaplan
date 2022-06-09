@@ -93,4 +93,11 @@ class CategoryRepositoryTest {
         return consumer;
     }
 
+
+    @Test
+    public void testListRootCategories(){
+        List<Category> rootCategories = categoryRepository.listRootCategories();
+        rootCategories.forEach(cat -> System.out.println(cat.getName()));
+    }
+
 }
