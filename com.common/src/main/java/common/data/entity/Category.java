@@ -52,9 +52,13 @@ public class Category {
 
     public Category(Long category_id) {
         this.category_id = category_id;
+        this.image="default.png";
+
     }
 
     public Category() {
+        this.image="default.png";
+
     }
 
     public static Category copyIdAndName(Category category) {
@@ -84,5 +88,16 @@ public class Category {
         Category copyCategory= copyFull(category);
         copyCategory.setName(name);
         return copyCategory;
+    }
+
+//    @Transient
+//    public String getImagePath(){
+//        return "/category-images/"+this.getCategory_id()+"/"+this.image;
+//    }
+
+    @Transient
+    public String getImagePath(){
+        if (this.category_id==null)return "/images/image-thumbnail.png";
+        return "/category-images/"+this.getCategory_id()+"/"+this.image;
     }
 }

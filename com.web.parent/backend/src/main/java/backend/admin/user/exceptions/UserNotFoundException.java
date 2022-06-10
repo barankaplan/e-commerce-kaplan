@@ -1,4 +1,4 @@
-package backend.admin.user.service;
+package backend.admin.user.exceptions;
 
 public class UserNotFoundException extends Exception  {
 

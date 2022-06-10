@@ -42,7 +42,11 @@
             <tbody>
             <tr th:each="cat : ${listCategories}">
                 <td>[[${cat.category_id}]]</td>
-                <td></td>
+                <td>
+<!--                    <span th:if="${cat.image==null}" class="fa-solid fa-image-portrait fa-3x icon-silver"></span>-->
+<!--                    <img th:if="${cat.image!=null}" th:src="@{${cat.imagePath}}" style="width: 100px" class="img-fluid"/>-->
+                    <img th:src="@{${cat.imagePath}}" style="width: 100px" class="img-fluid"/>
+                </td>
                 <td>[[${cat.name}]]</td>
                 <td>[[${cat.alias}]]</td>
                 <td>
@@ -55,7 +59,7 @@
             </tbody>
         </table>
     </div>
-    <div th:replace="fragments :: footer"/>
+    <div th:replace="fragments :: footer"></div>
 
 </div>
 

@@ -1,6 +1,7 @@
 package backend.admin.user.service;
 
 
+import backend.admin.user.exceptions.UserNotFoundException;
 import backend.admin.user.repository.RoleRepository;
 import backend.admin.user.repository.UserRepository;
 import common.data.entity.Role;
