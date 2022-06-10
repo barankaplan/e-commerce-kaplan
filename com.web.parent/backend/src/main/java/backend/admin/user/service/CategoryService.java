@@ -190,4 +190,31 @@ public class CategoryService {
         }
     }
 
+    public String checkUnique (Long id,String name,String alias){
+        boolean isCreatingNew=(id== null || id==0);
+        Category byName = categoryRepository.findByName(name);
+        if (isCreatingNew) {
+            if (byName != null){
+                return "Duplicated Name!";
+            }else {
+                Category byAlias = categoryRepository.findByAlias(alias);
+                if (byAlias != null){
+                    return "Duplicated Alias!";
+
+                }
+            }
+        }else{
+            if (byName !=null && byName.getCategory_id() != id){
+                return "Duplicated Name!";
+            }
+            Category byAlias = categoryRepository.findByAlias(alias);
+            if (byAlias != null && byAlias.getCategory_id() != id){
+                return "Duplicated Alias!";
+
+            }
+
+
+        }
+        return "OK";
+    }
 }

@@ -84,7 +84,7 @@ class CategoryRepositoryTest {
                     for (Category subcategory : children
                     ) {
                         System.out.println("--" + subcategory.getName());
-                        printChildren( subcategory,1);
+                        printChildren(subcategory, 1);
                     }
                 }
             }
@@ -94,9 +94,22 @@ class CategoryRepositoryTest {
 
 
     @Test
-     void testListRootCategories(){
+    void testListRootCategories() {
         List<Category> rootCategories = categoryRepository.findRootCategories();
         rootCategories.forEach(cat -> System.out.println(cat.getName()));
+    }
+
+    @Test
+    void testFindByName() {
+        Category category = categoryRepository.findByName("Computers");
+        assertThat(category).isNotNull();
+        assertThat(category.getName()).isEqualTo("Computers");
+    }
+    @Test
+    void testFindByAlias() {
+        Category category = categoryRepository.findByAlias("Computers");
+        assertThat(category).isNotNull();
+        assertThat(category.getAlias()).isEqualTo("Computers");
     }
 
 }
