@@ -73,23 +73,7 @@
         </div>
     </form>
 
-    <div class="modal fade text-center" id="modalDialog">
-        <div class="model-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="modalTitle">Warning</h4>
-                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <span id="modalBody"></span>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div th:replace="modal_fragments :: modal_dialog"></div>
 
     <div th:replace="fragments :: footer"></div>
 
@@ -106,9 +90,21 @@
         url = "[[@{/categories/check_unique}]]";
         params={id:catId,name:catName,alias:catAlias,_csrf: csrfValue};
         $.post(url,params,function (response){
-            alert(response);
+            // alert(response);
+            if (response == "OK") {
+                form.submit();
+            } else if (response == "Duplicated Name!") {
+
+                showWarningModal( "There is another category having the same name : " + catName);
+            }else if (response == "Duplicated Alias!") {
+
+                showWarningModal( "There is another category having the same alias : " + catAlias);
+            }
+            else {
+                showErrorModal( "Unknown response from server");
+            }
         }).fail(function (){
-            alert('failed');
+            showErrorModal("Could not connect to the server");
         });
         return false;
     }
