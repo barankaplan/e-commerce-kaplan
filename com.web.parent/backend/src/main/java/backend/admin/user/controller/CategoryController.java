@@ -8,6 +8,7 @@ import backend.admin.user.service.CategoryService;
 import common.data.entity.Category;
 import common.data.entity.Role;
 import common.data.entity.User;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -31,8 +32,8 @@ public class CategoryController {
     }
 
     @GetMapping("/categories")
-    public String listAll(Model model) {
-        List<Category> listCategories = categoryService.listAll();
+    public String listAll(@Param("sortDir")String sortDir,Model model) {
+        List<Category> listCategories = categoryService.listAll(sortDir);
         model.addAttribute("listCategories", listCategories);
         return "categories/categories";
     }
