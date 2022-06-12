@@ -7,9 +7,11 @@ import common.data.entity.Category;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.*;
 
 @Service
+@Transactional
 public class CategoryService {
     private final CategoryRepository categoryRepository;
 
@@ -23,11 +25,11 @@ public class CategoryService {
 
     public List<Category> listAll(String sortDir) {
         Sort sort = Sort.by("name");
-        if (sortDir == null || sortDir.isEmpty()){
-            sort = sort.ascending();
-
-        }
-        else if (sortDir.equals("asc")) {
+//        if (sortDir == null || sortDir.isEmpty()){
+//            sort = sort.ascending();
+//
+//        }
+         if (sortDir.equals("asc")) {
             sort = sort.ascending();
         } else  if (sortDir.equals("desc")) {
             sort = sort.descending();
@@ -200,8 +202,9 @@ public class CategoryService {
     }
 
     public String checkUnique(Long id, String name, String alias) {
-        boolean isCreatingNew = (id == null || id == 0);
         Category byName = categoryRepository.findByName(name);
+        boolean isCreatingNew = (id == null || id == 0);
+
         if (isCreatingNew) {
             if (byName != null) {
                 return "Duplicated Name!";
@@ -248,4 +251,10 @@ public class CategoryService {
         sortedChildren.addAll(children);
         return sortedChildren;
     }
+
+    //should be transactional
+    public void updateCategoryEnabledStatus(Long id, boolean enabled) {
+        categoryRepository.updateEnabledStatus(id, enabled);
+    }
+
 }

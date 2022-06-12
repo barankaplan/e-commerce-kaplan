@@ -32,9 +32,17 @@ public class CategoryController {
     }
 
     @GetMapping("/categories")
-    public String listAll(@Param("sortDir")String sortDir,Model model) {
+    public String listAll(@Param("sortDir") String sortDir, Model model) {
+
+        if (sortDir == null || sortDir.isEmpty()) {
+            sortDir = "asc";
+
+        }
         List<Category> listCategories = categoryService.listAll(sortDir);
         model.addAttribute("listCategories", listCategories);
+        String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
+        model.addAttribute("reverseSortDir", reverseSortDir);
+
         return "categories/categories";
     }
 
@@ -65,19 +73,19 @@ public class CategoryController {
     public String saveCategory(Category category, @RequestParam("fileImage") MultipartFile multipartFile,
                                RedirectAttributes redirectAttributes) throws IOException {
 
-        if(!multipartFile.isEmpty()){
-            String fileName=StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        if (!multipartFile.isEmpty()) {
+            String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
             category.setImage(fileName);
 
-            Category savedCategory=categoryService.save(category);
-            String uploadDir="../category-images/"+savedCategory.getCategory_id();
+            Category savedCategory = categoryService.save(category);
+            String uploadDir = "../category-images/" + savedCategory.getCategory_id();
 
             FileUploadUtil.cleanDir(uploadDir);
-            FileUploadUtil.saveFile(uploadDir,fileName,multipartFile);
-        }else {
+            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+        } else {
             categoryService.save(category);
         }
-        redirectAttributes.addFlashAttribute("message","The category has been saved" +
+        redirectAttributes.addFlashAttribute("message", "The category has been saved" +
                 "successfully !");
         return "redirect:/categories";
 
@@ -90,8 +98,9 @@ public class CategoryController {
             List<Category> listCategories = categoryService.listCategoriesUsedInForm();
 
             model.addAttribute("category", category);
-            model.addAttribute("listCategories", listCategories);
             model.addAttribute("pageTitle", " Edit Category (ID :" + id + ")");
+            model.addAttribute("listCategories", listCategories);
+
 
             return "categories/category_form";
 
@@ -99,5 +108,16 @@ public class CategoryController {
             redirectAttributes.addFlashAttribute("message", ex.getMessage());
             return "redirect:/categories";
         }
+    }
+
+    @GetMapping("/categories/{category_id}/enabled/{status}")
+    public String updateCategoryEnabledStatus(@PathVariable(name = "category_id") Long id, @PathVariable(name = "status") boolean enabled,
+                                          RedirectAttributes redirectAttributes) {
+        categoryService.updateCategoryEnabledStatus(id, enabled);
+        String status = enabled ? "enabled" : "disabled";
+        String message = "The category ID " + id + " has been " + status;
+        redirectAttributes.addFlashAttribute("message", message);
+        return "redirect:/categories";
+
     }
 }

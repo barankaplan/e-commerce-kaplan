@@ -34,8 +34,9 @@
                 <th>ID</th>
                 <th>Category Image</th>
                 <th>
-                    <a class="text-white" th:href="@{'/categories?sortDir=asc'}">Category Name</a>
-
+                    <a class="text-white" th:href="@{'/categories?sortDir='+${reverseSortDir}}">Category Name</a>
+                    <span
+                            th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
                 </th>
                 <th>Alias</th>
                 <th>Enabled</th>
@@ -46,17 +47,17 @@
             <tr th:each="cat : ${listCategories}">
                 <td>[[${cat.category_id}]]</td>
                 <td>
-<!--                    <span th:if="${cat.image==null}" class="fa-solid fa-image-portrait fa-3x icon-silver"></span>-->
-<!--                    <img th:if="${cat.image!=null}" th:src="@{${cat.imagePath}}" style="width: 100px" class="img-fluid"/>-->
+                    <!--                    <span th:if="${cat.image==null}" class="fa-solid fa-image-portrait fa-3x icon-silver"></span>-->
+                    <!--                    <img th:if="${cat.image!=null}" th:src="@{${cat.imagePath}}" style="width: 100px" class="img-fluid"/>-->
                     <img th:src="@{${cat.imagePath}}" style="width: 100px" class="img-fluid"/>
                 </td>
                 <td>[[${cat.name}]]</td>
                 <td>[[${cat.alias}]]</td>
                 <td>
-                    <div th:replace="fragments :: category_status"/>
+                    <div th:replace="fragments :: category_status"></div>
                 </td>
                 <td>
-                    <div th:replace="fragments :: category_actions"/>
+                    <div th:replace="fragments :: category_actions"></div>
                 </td>
             </tr>
             </tbody>
