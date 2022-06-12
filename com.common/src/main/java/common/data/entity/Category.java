@@ -18,10 +18,10 @@ public class Category {
     @Column(name = "category_id", nullable = false)
     private Long category_id;
 
-    @Column(length = 128, nullable = false,unique = true)
+    @Column(length = 128, nullable = false, unique = true)
     private String name;
 
-    @Column(length = 64, nullable = false,unique = true)
+    @Column(length = 64, nullable = false, unique = true)
     private String alias;
 
     @Column(length = 128, nullable = false)
@@ -35,29 +35,30 @@ public class Category {
     private Category parent;
 
     @OneToMany(mappedBy = "parent")
-    private Set<Category> children= new HashSet<>();
+    private Set<Category> children = new HashSet<>();
 
 
     public Category(String name) {
         this.name = name;
-        this.alias=name;
-        this.image="default.png";
+        this.alias = name;
+        this.image = "default.png";
     }
-    public Category(String name,Category parent) {
+
+    public Category(String name, Category parent) {
         this.name = name;
-        this.alias=name;
-        this.parent=parent;
-        this.image="default.png";
+        this.alias = name;
+        this.parent = parent;
+        this.image = "default.png";
     }
 
     public Category(Long category_id) {
         this.category_id = category_id;
-        this.image="default.png";
+        this.image = "default.png";
 
     }
 
     public Category() {
-        this.image="default.png";
+        this.image = "default.png";
 
     }
 
@@ -68,30 +69,32 @@ public class Category {
     }
 
     public static Category copyIdAndName(Category category) {
-        Category category1= new Category();
+        Category category1 = new Category();
         category1.setCategory_id(category.getCategory_id());
         category1.setName(category.getName());
         return category1;
     }
+
     public static Category copyIdAndName(Long id, String name) {
-        Category category1= new Category();
+        Category category1 = new Category();
         category1.setCategory_id(id);
         category1.setName(name);
         return category1;
     }
 
     public static Category copyFull(Category category) {
-        Category category1= new Category();
+        Category category1 = new Category();
         category1.setCategory_id(category.getCategory_id());
         category1.setName(category.getName());
         category1.setImage(category.getImage());
         category1.setAlias(category.getAlias());
         category1.setEnabled(category.isEnabled());
+        category1.setHasChildren(category.getChildren().size()>0);
         return category1;
     }
 
-    public static Category copyFull(Category category,String name) {
-        Category copyCategory= copyFull(category);
+    public static Category copyFull(Category category, String name) {
+        Category copyCategory = copyFull(category);
         copyCategory.setName(name);
         return copyCategory;
     }
@@ -102,8 +105,21 @@ public class Category {
 //    }
 
     @Transient
-    public String getImagePath(){
-        if (this.category_id==null)return "/images/image-thumbnail.png";
-        return "/category-images/"+this.getCategory_id()+"/"+this.image;
+    public String getImagePath() {
+        if (this.category_id == null) return "/images/image-thumbnail.png";
+        return "/category-images/" + this.getCategory_id() + "/" + this.image;
     }
+
+    public boolean isHasChildren() {
+        return hasChildren;
+    }
+
+    public void setHasChildren(boolean hasChildren){
+        this.hasChildren=hasChildren;
+    }
+
+    @Transient
+    private boolean hasChildren;
+
+
 }

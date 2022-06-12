@@ -258,7 +258,12 @@ public class CategoryService {
         categoryRepository.updateEnabledStatus(id, enabled);
     }
 
-    public void delete(Long id)  throws UserNotFoundException {
+    public void delete(Long id)  throws CategoryNotFoundException {
+        Long countById= categoryRepository.countByCategory_id(id);
+        if (countById==null || countById ==0){
+            throw new CategoryNotFoundException("Could not find any category with ID"+id);
+        }
+        categoryRepository.deleteById(id);
 
     }
 }

@@ -151,29 +151,32 @@
         </nav>
     </div>
 
-    <div class="modal fade text-center" id="confirmModal">
-        <div class="model-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="modalTitle">Delete Confirmation</h4>
-                    <button id="buttonCancel2" type="button" class="close" data-bs-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <span id="confirmText"> </span>
-                </div>
-                <div class="modal-footer">
-                    <a class="btn btn-success" href="" id="yesButton">Yes </a>
-                    <button id="buttonCancel3" type="button" class="btn btn-danger" data-bs-dismiss="modal">No
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+<!--    <div class="modal fade text-center" id="confirmModal">-->
+<!--        <div class="model-dialog">-->
+<!--            <div class="modal-content">-->
+<!--                <div class="modal-header">-->
+<!--                    <h4 class="modal-title" id="modalTitle">Delete Confirmation</h4>-->
+<!--                    <button id="buttonCancel2" type="button" class="close" data-bs-dismiss="modal">&times;</button>-->
+<!--                </div>-->
+<!--                <div class="modal-body">-->
+<!--                    <span id="confirmText"> </span>-->
+<!--                </div>-->
+<!--                <div class="modal-footer">-->
+<!--                    <a class="btn btn-success" href="" id="yesButton">Yes </a>-->
+<!--                    <button id="buttonCancel3" type="button" class="btn btn-danger" data-bs-dismiss="modal">No-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+    <div th:replace="modal_fragments :: confirm_modal"></div>
 
     <div th:replace="fragments :: footer"></div>
 
 
 </div>
+<script th:src="@{/js/common_list.js}" ></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $("#buttonCancel3").on("click", function () {
