@@ -2,6 +2,7 @@ package backend.admin.user.service;
 
 
 import backend.admin.user.exceptions.CategoryNotFoundException;
+import backend.admin.user.exceptions.UserNotFoundException;
 import backend.admin.user.repository.CategoryRepository;
 import common.data.entity.Category;
 import org.springframework.data.domain.Sort;
@@ -257,4 +258,7 @@ public class CategoryService {
         categoryRepository.updateEnabledStatus(id, enabled);
     }
 
+    public void delete(Long id)  throws UserNotFoundException {
+
+    }
 }

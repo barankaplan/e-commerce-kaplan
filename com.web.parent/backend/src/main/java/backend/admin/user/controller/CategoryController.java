@@ -120,4 +120,17 @@ public class CategoryController {
         return "redirect:/categories";
 
     }
+
+    @GetMapping("/categories/delete/{category_id}")
+    public String deleteUser(@PathVariable(name = "category_id") Long id, RedirectAttributes redirectAttributes, Model model) {
+        try {
+            categoryService.delete(id);
+            redirectAttributes.addFlashAttribute("message", "The category ID " + id + " deleted successfully !");
+
+        } catch (CategoryNotFoundException ex) {
+            redirectAttributes.addFlashAttribute("message", ex.getMessage());
+
+        }
+        return "redirect:/users";
+    }
 }
