@@ -16,7 +16,7 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id", nullable = false)
-    private Long category_id;
+    private Long categoryId;
 
     @Column(length = 128, nullable = false, unique = true)
     private String name;
@@ -51,8 +51,8 @@ public class Category {
         this.image = "default.png";
     }
 
-    public Category(Long category_id) {
-        this.category_id = category_id;
+    public Category(Long categoryId) {
+        this.categoryId = categoryId;
         this.image = "default.png";
 
     }
@@ -62,29 +62,29 @@ public class Category {
 
     }
 
-    public Category(Long category_id, String name, String alias) {
-        this.category_id = category_id;
+    public Category(Long categoryId, String name, String alias) {
+        this.categoryId = categoryId;
         this.name = name;
         this.alias = alias;
     }
 
     public static Category copyIdAndName(Category category) {
         Category category1 = new Category();
-        category1.setCategory_id(category.getCategory_id());
+        category1.setCategoryId(category.getCategoryId());
         category1.setName(category.getName());
         return category1;
     }
 
     public static Category copyIdAndName(Long id, String name) {
         Category category1 = new Category();
-        category1.setCategory_id(id);
+        category1.setCategoryId(id);
         category1.setName(name);
         return category1;
     }
 
     public static Category copyFull(Category category) {
         Category category1 = new Category();
-        category1.setCategory_id(category.getCategory_id());
+        category1.setCategoryId(category.getCategoryId());
         category1.setName(category.getName());
         category1.setImage(category.getImage());
         category1.setAlias(category.getAlias());
@@ -106,8 +106,8 @@ public class Category {
 
     @Transient
     public String getImagePath() {
-        if (this.category_id == null) return "/images/image-thumbnail.png";
-        return "/category-images/" + this.getCategory_id() + "/" + this.image;
+        if (this.categoryId == null) return "/images/image-thumbnail.png";
+        return "/category-images/" + this.getCategoryId() + "/" + this.image;
     }
 
     public boolean isHasChildren() {

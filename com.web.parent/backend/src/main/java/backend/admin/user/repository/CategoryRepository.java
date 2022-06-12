@@ -13,16 +13,16 @@ import java.util.List;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
-    @Query("select c from Category c where c.parent.category_id is NULL  ")
+    @Query("select c from Category c where c.parent.categoryId is NULL  ")
     List<Category> findRootCategories(Sort sort);
 
     Category findByName(String name);
 
     Category findByAlias(String name);
 
-    Long countBy(Long lng);
+    Long countByCategoryId(Long lng);
 
-    @Query("update Category u set u.enabled= ?2 where u.category_id=?1")
+    @Query("update Category u set u.enabled= ?2 where u.categoryId=?1")
     @Modifying
 //update !
     void updateEnabledStatus(Long id, boolean enabled);

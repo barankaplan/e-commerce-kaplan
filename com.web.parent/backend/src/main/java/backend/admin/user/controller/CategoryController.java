@@ -3,11 +3,8 @@ package backend.admin.user.controller;
 
 import backend.admin.FileUploadUtil;
 import backend.admin.user.exceptions.CategoryNotFoundException;
-import backend.admin.user.exceptions.UserNotFoundException;
 import backend.admin.user.service.CategoryService;
 import common.data.entity.Category;
-import common.data.entity.Role;
-import common.data.entity.User;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -78,7 +75,7 @@ public class CategoryController {
             category.setImage(fileName);
 
             Category savedCategory = categoryService.save(category);
-            String uploadDir = "../category-images/" + savedCategory.getCategory_id();
+            String uploadDir = "../category-images/" + savedCategory.getCategoryId();
 
             FileUploadUtil.cleanDir(uploadDir);
             FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
@@ -91,8 +88,8 @@ public class CategoryController {
 
     }
 
-    @GetMapping("/categories/edit/{category_id}")
-    public String editCategory(@PathVariable(name = "category_id") Long id, RedirectAttributes redirectAttributes, Model model) {
+    @GetMapping("/categories/edit/{categoryId}")
+    public String editCategory(@PathVariable(name = "categoryId") Long id, RedirectAttributes redirectAttributes, Model model) {
         try {
             Category category = categoryService.get(id);
             List<Category> listCategories = categoryService.listCategoriesUsedInForm();
@@ -110,8 +107,8 @@ public class CategoryController {
         }
     }
 
-    @GetMapping("/categories/{category_id}/enabled/{status}")
-    public String updateCategoryEnabledStatus(@PathVariable(name = "category_id") Long id, @PathVariable(name = "status") boolean enabled,
+    @GetMapping("/categories/{categoryId}/enabled/{status}")
+    public String updateCategoryEnabledStatus(@PathVariable(name = "categoryId") Long id, @PathVariable(name = "status") boolean enabled,
                                           RedirectAttributes redirectAttributes) {
         categoryService.updateCategoryEnabledStatus(id, enabled);
         String status = enabled ? "enabled" : "disabled";
@@ -121,8 +118,8 @@ public class CategoryController {
 
     }
 
-    @GetMapping("/categories/delete/{category_id}")
-    public String deleteCategory(@PathVariable(name = "category_id") Long id, RedirectAttributes redirectAttributes,
+    @GetMapping("/categories/delete/{categoryId}")
+    public String deleteCategory(@PathVariable(name = "categoryId") Long id, RedirectAttributes redirectAttributes,
                                  Model model) {
         try {
             categoryService.delete(id);

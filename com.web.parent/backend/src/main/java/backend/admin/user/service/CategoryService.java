@@ -2,7 +2,6 @@ package backend.admin.user.service;
 
 
 import backend.admin.user.exceptions.CategoryNotFoundException;
-import backend.admin.user.exceptions.UserNotFoundException;
 import backend.admin.user.repository.CategoryRepository;
 import common.data.entity.Category;
 import org.springframework.data.domain.Sort;
@@ -161,7 +160,7 @@ public class CategoryService {
 
                 for (Category subCategory : children) {
                     String name = "--" + subCategory.getName();
-                    categoriesUsedInForm.add(Category.copyIdAndName(subCategory.getCategory_id(), name));
+                    categoriesUsedInForm.add(Category.copyIdAndName(subCategory.getCategoryId(), name));
 
                     listSubCategoriesUsedInForm(categoriesUsedInForm, subCategory, 1);
                 }
@@ -184,7 +183,7 @@ public class CategoryService {
             }
             name += subCategory.getName();
 
-            categoriesUsedInForm.add(Category.copyIdAndName(subCategory.getCategory_id(), name));
+            categoriesUsedInForm.add(Category.copyIdAndName(subCategory.getCategoryId(), name));
 
             listSubCategoriesUsedInForm(categoriesUsedInForm, subCategory, newSubLevel);
         }
@@ -217,11 +216,11 @@ public class CategoryService {
                 }
             }
         } else {
-            if (byName != null && byName.getCategory_id() != id) {
+            if (byName != null && byName.getCategoryId() != id) {
                 return "Duplicated Name!";
             }
             Category byAlias = categoryRepository.findByAlias(alias);
-            if (byAlias != null && byAlias.getCategory_id() != id) {
+            if (byAlias != null && byAlias.getCategoryId() != id) {
                 return "Duplicated Alias!";
 
             }
@@ -259,7 +258,7 @@ public class CategoryService {
     }
 
     public void delete(Long id)  throws CategoryNotFoundException {
-        Long countById= categoryRepository.countByCategory_id(id);
+        Long countById= categoryRepository.countByCategoryId(id);
         if (countById==null || countById ==0){
             throw new CategoryNotFoundException("Could not find any category with ID"+id);
         }

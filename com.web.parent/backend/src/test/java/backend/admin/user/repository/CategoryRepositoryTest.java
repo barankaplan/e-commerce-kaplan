@@ -26,7 +26,7 @@ class CategoryRepositoryTest {
     void testCreateRootCategory() {
         Category category = new Category("Electronics");
         Category savedCategory = categoryRepository.save(category);
-        assertThat(savedCategory.getCategory_id()).isPositive();
+        assertThat(savedCategory.getCategoryId()).isPositive();
     }
 
     @Test
@@ -34,7 +34,7 @@ class CategoryRepositoryTest {
         Category parent = new Category(1L);
         Category subCategory = new Category("Desktops", parent);
         Category savedCategory = categoryRepository.save(subCategory);
-        assertThat(savedCategory.getCategory_id()).isPositive();
+        assertThat(savedCategory.getCategoryId()).isPositive();
     }
 
     @Test

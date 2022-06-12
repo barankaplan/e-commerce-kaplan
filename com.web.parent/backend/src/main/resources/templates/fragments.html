@@ -48,25 +48,25 @@
 
 <div th:fragment="category_status" th:remove="tag">
     <a th:if="${cat.enabled == true}" class="fas fa-check-circle fa-2x icon-green"
-       th:href="@{'/categories/' + ${cat.category_id} + '/enabled/false'}"
+       th:href="@{'/categories/' + ${cat.categoryId} + '/enabled/false'}"
        title="Disable this category"
     ></a>
 
     <a th:if="${cat.enabled == false}" class="fas fa-circle fa-2x icon-dark"
-       th:href="@{'/categories/' + ${cat.category_id} + '/enabled/true'}"
+       th:href="@{'/categories/' + ${cat.categoryId} + '/enabled/true'}"
        title="Enable this category"
     ></a>
 </div>
 
 <div th:fragment="category_actions" th:remove="tag">
-    <a class="fas fa-edit fa-2x icon-green" th:href="@{'/categories/edit/' + ${cat.category_id}}"
+    <a class="fas fa-edit fa-2x icon-green" th:href="@{'/categories/edit/' + ${cat.categoryId}}"
        title="Edit this category"></a>
     &nbsp;
 
     <th:block th:if="${cat.hasChildren == false}">
-    <a class="fas fa-trash fa-2x icon-dark link-delete"
-       th:href="@{'/categories/delete/' + ${cat.category_id}}"
-       th:entityId="${cat.category_id}"
+    <a class="fas fa-trash fa-2x icon-red link-delete"
+       th:href="@{'/categories/delete/' + ${cat.categoryId}}"
+       th:entityId="${cat.categoryId}"
        title="Delete this category"></a>
     </th:block>
 </div>
