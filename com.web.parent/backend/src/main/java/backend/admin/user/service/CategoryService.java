@@ -19,6 +19,9 @@ import java.util.*;
 public class CategoryService {
     private final CategoryRepository categoryRepository;
     private static final int ROOT_CATEGORIES_PER_PAGE = 4;
+    public int getCategoriesPerPage() {
+        return ROOT_CATEGORIES_PER_PAGE;
+    }
 
     public CategoryService(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
@@ -68,6 +71,8 @@ public class CategoryService {
 
         }
     }
+
+
 
     private List<Category> listHierarchicalCategories(List<Category> rootCategories,
                                                       String sortDir) {

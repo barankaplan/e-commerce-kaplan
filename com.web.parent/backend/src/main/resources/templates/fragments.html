@@ -28,7 +28,7 @@
 
 <th th:fragment="column_link(fieldName, columnLabel, removeTag)" th:remove="${removeTag}">
     <a class="text-white"
-       th:href="@{'/users/page/' + ${currentPage} + '?sortField=' + ${fieldName}  +'&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">
+       th:href="@{'/users/page/' + ${currentPage} + '?sortField=' + ${fieldName}  +'&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' +keyword: '' }}">
         [[${columnLabel}]]
     </a>
     <span th:if="${sortField == fieldName}"
@@ -74,7 +74,7 @@
 </div>
 
 <div>
-    <div th:if="${totalPages > 1}">
+<!--    <div th:if="${totalPages > 1}">-->
         <div th:fragment="pagination(moduleURL,entityName)" th:remove="tag">
             <div class="text-center m-1" th:if="${totalItems >0}">
                 <span>Showing [[${entityName}]] #[[${startCount}]] to [[${endCount}]] of [[${totalItems}]] </span>
@@ -105,7 +105,7 @@
                 </nav>
             </div>
         </div>
-    </div>
+<!--    </div>-->
 
 </div>
 
@@ -125,7 +125,6 @@
         </button>
     </form>
 </div>
-
 
 
 </body>

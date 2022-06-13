@@ -123,13 +123,22 @@ public class CategoryController {
         }
         CategoryPageInfo categoryPageInfo= new CategoryPageInfo();
         List<Category> listCategories = categoryService.listByPage(categoryPageInfo,pageNum,sortDir,keyword);
+        long startCount = (long) (pageNum - 1) * categoryService.getCategoriesPerPage()+1;
+        long endCount = startCount + categoryService.getCategoriesPerPage()-1;
+        if (endCount > categoryPageInfo.getTotalElements()) {
+            endCount = categoryPageInfo.getTotalElements();
+        }
+
         String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
+
         model.addAttribute("totalPages", categoryPageInfo.getTotalPages());
         model.addAttribute("totalItems", categoryPageInfo.getTotalElements());
         model.addAttribute("currentPage", pageNum );
         model.addAttribute("sortField", "name" );
         model.addAttribute("sortDir", sortDir );
         model.addAttribute("keyword", keyword );
+        model.addAttribute("startCount", startCount);
+        model.addAttribute("endCount", endCount);
         model.addAttribute("listCategories", listCategories);
         model.addAttribute("reverseSortDir", reverseSortDir);
 

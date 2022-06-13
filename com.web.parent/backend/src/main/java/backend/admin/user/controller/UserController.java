@@ -153,12 +153,10 @@ public class UserController {
         Page<User> page = userService.listByPage(pageNum,sortField,sortDir,keyword);
         List<User> listUsers = page.getContent();
 
-//        System.out.println("Page Number = "+pageNum);
-//        System.out.println("Total elements = "+page.getTotalElements());
-//        System.out.println("Total pages = "+page.getTotalPages());
 
-        long startCount = (long) (pageNum - 1) * userService.getUsersPerPage();
-        long endCount = startCount + userService.getUsersPerPage();
+
+        long startCount = (long) (pageNum - 1) * userService.getUsersPerPage()+1;
+        long endCount = startCount + userService.getUsersPerPage()-1;
         if (endCount > page.getTotalElements()) {
             endCount = page.getTotalElements();
         }

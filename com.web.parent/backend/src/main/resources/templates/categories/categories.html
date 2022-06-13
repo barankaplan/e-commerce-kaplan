@@ -13,8 +13,8 @@
     <div th:if="${message != null}" class="alert alert-success text-center">
         [[${message}]]
     </div>
+    <div th:replace="fragments :: search_form('/categories/page/1')"></div>
 
-    <div th:replace="fragments :: search_form('/categories/page/1')"/>
 
     <div class="full-details">
         <table class="table table-bordered table-striped table-hover table-responsive-xl">
@@ -23,10 +23,12 @@
                 <th>ID</th>
                 <th>Category Image</th>
                 <th>
-                    <a class="text-white" th:href="@{'/categories/page/' + ${pageNum} + '?sortDir='+${reverseSortDir}}">Category
+
+                    <a class="text-white" th:href="@{'/categories/page/' + ${pageNum} + '?sortDir='+${reverseSortDir}
+                    + ${keyword != null ? '&keyword=' +keyword: '' }
+                    }">Category
                         Name</a>
-                    <span
-                            th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+                    <span th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
                 </th>
                 <th>Alias</th>
                 <th>Enabled</th>
@@ -54,7 +56,17 @@
         </table>
     </div>
 
-    <div th:replace="fragments :: pagination('/categories','top-level categories')"></div>
+
+    <div th:if="${keyword != null}" class="text-center">
+        <span>Search results are not being showed in hierarchical form </span>
+        <div th:replace="fragments :: pagination('/categories','categories')"></div>
+
+    </div>
+
+    <th:block th:unless="${keyword !=null}">
+        <div th:replace="fragments :: pagination('/categories','top-level categories')"></div>
+
+    </div>
 
     <div th:replace="modal_fragments :: confirm_modal"></div>
 
