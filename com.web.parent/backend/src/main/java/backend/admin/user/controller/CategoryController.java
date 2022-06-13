@@ -29,18 +29,9 @@ public class CategoryController {
     }
 
     @GetMapping("/categories")
-    public String listAll(@Param("sortDir") String sortDir, Model model) {
+    public String listFirstPage(@Param("sortDir") String sortDir, Model model) {
 
-        if (sortDir == null || sortDir.isEmpty()) {
-            sortDir = "asc";
-
-        }
-        List<Category> listCategories = categoryService.listAll(sortDir);
-        model.addAttribute("listCategories", listCategories);
-        String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
-        model.addAttribute("reverseSortDir", reverseSortDir);
-
-        return "categories/categories";
+        return listByPage(1,sortDir,model);
     }
 
     @GetMapping("/categories/new")
@@ -52,19 +43,6 @@ public class CategoryController {
         return "categories/category_form";
     }
 
-//    @PostMapping("/categories/save")
-//    public String saveCategory(Category category, @RequestParam("fileImage") MultipartFile multipartFile,
-//                               RedirectAttributes redirectAttributes) throws IOException {
-//
-//        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-//        category.setImage(fileName);
-//        Category savedCategory = categoryService.save(category);
-//        String uploadDir = "../category-images/" + savedCategory.getCategory_id().toString();
-//        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-//        redirectAttributes.addFlashAttribute("message", "The category has been saved successfully!");
-//        return "redirect:/categories";
-//
-//    }
 
     @PostMapping("/categories/save")
     public String saveCategory(Category category, @RequestParam("fileImage") MultipartFile multipartFile,
@@ -133,5 +111,27 @@ public class CategoryController {
 
         }
         return "redirect:/categories";
+    }
+
+    @GetMapping("/categories/page/{pageNum}")
+    public String listByPage(@PathVariable(name="pageNum")int pageNum,
+                             @Param("sortDir") String sortDir, Model model){
+        if (sortDir == null || sortDir.isEmpty()) {
+            sortDir = "asc";
+
+        }
+        CategoryPageInfo categoryPageInfo= new CategoryPageInfo();
+        List<Category> listCategories = categoryService.listByPage(categoryPageInfo,pageNum,sortDir);
+        String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
+        model.addAttribute("totalPages", categoryPageInfo.getTotalPages());
+        model.addAttribute("totalItems", categoryPageInfo.getTotalElements());
+        model.addAttribute("currentPage", pageNum );
+        model.addAttribute("sortField", "name" );
+        model.addAttribute("sortField", sortDir );
+        model.addAttribute("listCategories", listCategories);
+        model.addAttribute("reverseSortDir", reverseSortDir);
+
+        return "categories/categories";
+
     }
 }
