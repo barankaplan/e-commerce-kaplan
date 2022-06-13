@@ -13,7 +13,7 @@
     <div th:if="${message != null}" class="alert alert-success text-center">
         [[${message}]]
     </div>
-    <div th:replace="fragments :: search_form('/categories/page/1')"></div>
+    <div th:replace="fragments :: search_form('/categories/page/1')"/>
 
 
     <div class="full-details">
@@ -24,10 +24,9 @@
                 <th>Category Image</th>
                 <th>
 
-                    <a class="text-white" th:href="@{'/categories/page/' + ${pageNum} + '?sortDir='+${reverseSortDir}
+                    <a  class="text-white" th:href="@{'/categories/page/' + ${pageNum == null ? 1 :pageNum} + '?sortDir='+${reverseSortDir}
                     + ${keyword != null ? '&keyword=' +keyword: '' }
-                    }">Category
-                        Name</a>
+                    }">Category Name</a>
                     <span th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
                 </th>
                 <th>Alias</th>
@@ -66,7 +65,7 @@
     <th:block th:unless="${keyword !=null}">
         <div th:replace="fragments :: pagination('/categories','top-level categories')"></div>
 
-    </div>
+    </th:block>>
 
     <div th:replace="modal_fragments :: confirm_modal"></div>
 
