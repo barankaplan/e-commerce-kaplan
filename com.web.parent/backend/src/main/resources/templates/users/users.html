@@ -18,23 +18,7 @@
         [[${message}]]
     </div>
 
-    <div>
-        <form th:action="@{/users/page/1}" class="form-inline m-3">
-            <input type="hidden" name="sortField" th:value="${sortField}">
-            <input type="hidden" name="sortDir" th:value="${sortDir}">
-            Filter:&nbsp;&nbsp;
-            <input type="search" name="keyword" th:value="${keyword}" class="form-control" required/>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <button type="submit" class="btn btn-primary">
-                <i class="fas fa-search "></i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <button type="button" class="btn btn-secondary" onclick="clearFilter()">
-                <i class="fas fa-eraser "></i>
-            </button>
-        </form>
-    </div>
-
+    <div th:replace="fragments :: search_form('/users/page/1')"/>
     <div class="full-details">
         <table class="table table-bordered table-striped table-hover table-responsive-xl">
             <thead class="thead-dark">
@@ -129,7 +113,7 @@
 
 
 </div>
-<script th:src="@{/js/common_list.js}" ></script>
+<script th:src="@{/js/common_list.js}"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $("#buttonCancel3").on("click", function () {

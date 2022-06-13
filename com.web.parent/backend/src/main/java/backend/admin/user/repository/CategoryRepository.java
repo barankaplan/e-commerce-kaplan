@@ -32,5 +32,8 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 //update !
     void updateEnabledStatus(Long id, boolean enabled);
 
+    @Query("select c from Category c where c.name like %?1% ")
+    Page<Category> search (String keyword,Pageable pageable);
+
 
 }
