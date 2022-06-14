@@ -10,10 +10,8 @@
         <a th:href="@{/categories/new}" class="fas fa-folder-plus fa-2x icon-dark mr-2"></a>
         <a th:href="@{/categories/export/csv}" class="fas fa-file-csv fa-2x icon-dark mr-2"></a>
     </div>
-    <div th:if="${message != null}" class="alert alert-success text-center">
-        [[${message}]]
-    </div>
-    <div th:replace="fragments :: search_form('/categories/page/1')"/>
+
+    <div th:replace="fragments :: search_form_and_message('/categories/page/1')"/>
 
 
     <div class="full-details">
@@ -22,14 +20,7 @@
             <tr>
                 <th>ID</th>
                 <th>Category Image</th>
-                <!--                <th>-->
-                <!--                    <a class="text-white" th:href="@{'/categories/page/' + ${pageNum == null ? 1 :pageNum} + '?sortDir='+${reverseSortDir}-->
-                <!--                    + ${keyword != null ? '&keyword=' +keyword: '' }-->
-                <!--                    }">Category Name</a>-->
-                <!--                    <span th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>-->
-                <!--                </th>-->
                 <th th:replace="fragments :: column_link('/categories','name','Category Name','none')"/>
-
                 <th class="hideAble-column">Alias</th>
                 <th>Enabled</th>
                 <th></th>
@@ -39,8 +30,6 @@
             <tr th:each="cat : ${listCategories}">
                 <td>[[${cat.categoryId}]]</td>
                 <td>
-                    <!--                    <span th:if="${cat.image==null}" class="fa-solid fa-image-portrait fa-3x icon-silver"></span>-->
-                    <!--                    <img th:if="${cat.image!=null}" th:src="@{${cat.imagePath}}" style="width: 100px" class="img-fluid"/>-->
                     <img th:src="@{${cat.imagePath}}" style="width: 100px" class="img-fluid"/>
                 </td>
                 <td>[[${cat.name}]]</td>
@@ -51,7 +40,7 @@
                 <td>
                     <div th:replace="fragments :: edit('category','/categories/edit/'+ ${cat.categoryId})"/>
                     &nbsp;
-                    <div th:replace="fragments :: delete('category',${cat.categoryId},'/categories/edit/delete'+ ${cat.categoryId},${cat.hasChildren})"/>
+                    <div th:replace="fragments :: delete('category',${cat.categoryId},'/categories/edit/delete'+ ${cat.categoryId},${!cat.hasChildren})"/>
                 </td>
             </tr>
             </tbody>
@@ -69,7 +58,7 @@
                     &nbsp;
                     <div th:replace="fragments :: edit('category','/categories/edit/'+ ${cat.categoryId})"/>
                     &nbsp;
-                    <div th:replace="fragments :: delete('category',${cat.categoryId},'/categories/edit/delete'+ ${cat.categoryId},${cat.hasChildren})"/>
+                    <div th:replace="fragments :: delete('category',${cat.categoryId},'/categories/edit/delete'+ ${cat.categoryId},${!cat.hasChildren})"/>
                 </div>
             </div>
             <div>&nbsp;</div>
