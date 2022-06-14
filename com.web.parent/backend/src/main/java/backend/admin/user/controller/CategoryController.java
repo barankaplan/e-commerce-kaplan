@@ -3,8 +3,11 @@ package backend.admin.user.controller;
 
 import backend.admin.FileUploadUtil;
 import backend.admin.user.exceptions.CategoryNotFoundException;
+import backend.admin.user.export.CategoryCsvExporter;
+import backend.admin.user.export.UserCsvExporter;
 import backend.admin.user.service.CategoryService;
 import common.data.entity.Category;
+import common.data.entity.User;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
@@ -143,6 +147,14 @@ public class CategoryController {
         model.addAttribute("reverseSortDir", reverseSortDir);
 
         return "categories/categories";
+
+    }
+
+    @GetMapping("/categories/export/csv")
+    public void exportToCSV(HttpServletResponse httpServletResponse) throws IOException {
+        List<Category> listCategories= categoryService.listCategoriesUsedInForm();
+        CategoryCsvExporter exporter =new CategoryCsvExporter();
+        exporter.export(listCategories,httpServletResponse);
 
     }
 }

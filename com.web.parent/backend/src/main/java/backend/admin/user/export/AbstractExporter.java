@@ -14,10 +14,11 @@ import java.util.List;
 
 public abstract class AbstractExporter {
 
-    public void setResponseHeader(HttpServletResponse httpServletResponse, String contentType, String extension) throws IOException {
+    public void setResponseHeader(HttpServletResponse httpServletResponse, String contentType, String extension
+    ,String prefix) throws IOException {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
         String timestamp = dateFormat.format(new Date());
-        String fileName = "users_" + timestamp + extension;
+        String fileName = prefix + timestamp + extension;
         httpServletResponse.setContentType(contentType);
         String headerKey = "Content-Disposition";
         String headerValue = "attachment;filename=" + fileName;

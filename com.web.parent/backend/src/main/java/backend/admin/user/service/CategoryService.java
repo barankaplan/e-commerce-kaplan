@@ -18,7 +18,7 @@ import java.util.*;
 @Transactional
 public class CategoryService {
     private final CategoryRepository categoryRepository;
-    private static final int ROOT_CATEGORIES_PER_PAGE = 4;
+    private static final int ROOT_CATEGORIES_PER_PAGE = 1;
     public int getCategoriesPerPage() {
         return ROOT_CATEGORIES_PER_PAGE;
     }
