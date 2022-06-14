@@ -22,14 +22,15 @@
             <tr>
                 <th>ID</th>
                 <th>Category Image</th>
-                <th>
+                <!--                <th>-->
+                <!--                    <a class="text-white" th:href="@{'/categories/page/' + ${pageNum == null ? 1 :pageNum} + '?sortDir='+${reverseSortDir}-->
+                <!--                    + ${keyword != null ? '&keyword=' +keyword: '' }-->
+                <!--                    }">Category Name</a>-->
+                <!--                    <span th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>-->
+                <!--                </th>-->
+                <th th:replace="fragments :: column_link('/categories','name','Category Name','none')"/>
 
-                    <a  class="text-white" th:href="@{'/categories/page/' + ${pageNum == null ? 1 :pageNum} + '?sortDir='+${reverseSortDir}
-                    + ${keyword != null ? '&keyword=' +keyword: '' }
-                    }">Category Name</a>
-                    <span th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
-                </th>
-                <th class="hideAble-column" >Alias</th>
+                <th class="hideAble-column">Alias</th>
                 <th>Enabled</th>
                 <th></th>
             </tr>
@@ -45,10 +46,12 @@
                 <td>[[${cat.name}]]</td>
                 <td class="hideAble-column">[[${cat.alias}]]</td>
                 <td>
-                    <div th:replace="fragments :: category_status"></div>
+                    <div th:replace="fragments :: status(${cat.enabled},'categories','/categories/'+${cat.categoryId})"/>
                 </td>
                 <td>
-                    <div th:replace="fragments :: category_actions"></div>
+                    <div th:replace="fragments :: edit('category','/categories/edit/'+ ${cat.categoryId})"/>
+                    &nbsp;
+                    <div th:replace="fragments :: delete('category',${cat.categoryId},'/categories/edit/delete'+ ${cat.categoryId},${cat.hasChildren})"/>
                 </td>
             </tr>
             </tbody>
@@ -62,9 +65,11 @@
             <div class="col-8">
                 <div>[[${cat.name}]]</div>
                 <div class="mt-2">
-                    <div th:replace="fragments :: category_status"/>
+                    <div th:replace="fragments :: status(${cat.enabled},'categories','/categories/'+${cat.categoryId})"/>
                     &nbsp;
-                    <div th:replace="fragments :: category_actions"/>
+                    <div th:replace="fragments :: edit('category','/categories/edit/'+ ${cat.categoryId})"/>
+                    &nbsp;
+                    <div th:replace="fragments :: delete('category',${cat.categoryId},'/categories/edit/delete'+ ${cat.categoryId},${cat.hasChildren})"/>
                 </div>
             </div>
             <div>&nbsp;</div>
