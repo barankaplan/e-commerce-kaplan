@@ -17,5 +17,7 @@ import java.util.List;
 public interface BrandRepository extends JpaRepository<Brand, Long> {
     Long countById(Long id);
 
+    Brand findByName(String name);
+
 
 }
