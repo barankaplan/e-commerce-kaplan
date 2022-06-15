@@ -15,8 +15,7 @@ import java.util.List;
 
 @Repository
 public interface BrandRepository extends JpaRepository<Brand, Long> {
-
-
+    Long countById(Long id);
 
 
 }
