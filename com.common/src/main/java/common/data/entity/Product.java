@@ -21,7 +21,7 @@ import javax.persistence.Table;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(unique = true, length = 256, nullable = false)
     private String name;
@@ -66,5 +66,11 @@ public class Product {
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
-	
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
