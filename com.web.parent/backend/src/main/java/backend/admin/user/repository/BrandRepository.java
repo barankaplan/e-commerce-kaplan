@@ -23,4 +23,6 @@ public interface BrandRepository extends JpaRepository<Brand, Long> {
     Page<Brand> findAll (String keyword,Pageable pageable);
 
 
+    @Query("select new Brand (b.id,b.name) from Brand b order by b.name asc ")
+    List<Brand> findAllBrands();
 }

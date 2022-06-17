@@ -36,7 +36,14 @@ class BrandRepositoryTest {
     private BrandRepository brandRepository;
     @Autowired
     private BrandService brandService;
+    @Test
+    void testFindAll() {
+        List<Brand>brands=brandRepository.findAllBrands();
+        System.out.println("Brands");
+        brands.forEach(System.out::println);
+        assertThat(brands).isEmpty();
 
+    }
     @Test
     void testCreateBrand() {
         Category laptops = new Category(6L);
@@ -57,6 +64,7 @@ class BrandRepositoryTest {
         assertThat(savedBrand).isNotNull();
         assertThat(savedBrand.getCategories().size()).isPositive();
     }
+
 
     @Test
     void testCreateBrand3() {
