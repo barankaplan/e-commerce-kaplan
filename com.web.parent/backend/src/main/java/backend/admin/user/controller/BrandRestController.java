@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import backend.admin.user.exceptions.BrandNotFoundException;
+import backend.admin.user.exceptions.BrandNotFoundRestException;
 import backend.admin.user.service.BrandService;
 import common.data.entity.Brand;
 import common.data.entity.Category;
