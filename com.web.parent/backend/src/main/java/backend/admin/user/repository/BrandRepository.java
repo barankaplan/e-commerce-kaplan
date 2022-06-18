@@ -24,5 +24,5 @@ public interface BrandRepository extends JpaRepository<Brand, Long> {
 
 
     @Query("select new Brand (b.id,b.name) from Brand b order by b.name asc ")
-    List<Brand> findAllBrands();
+    List<Brand> findAll();
 }

@@ -23,7 +23,7 @@ public class BrandService {
     }
 
     public List<Brand> listAll(){
-        return brandRepository.findAllBrands();
+        return brandRepository.findAll();
     }
 
     public Brand save(Brand brand){

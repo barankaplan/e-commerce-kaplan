@@ -1,8 +1,5 @@
 package common.data.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -15,62 +12,203 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Setter
-@Getter
 @Table(name = "products")
 public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@Column(unique = true, length = 256, nullable = false)
+	private String name;
+	
+	@Column(unique = true, length = 256, nullable = false)
+	private String alias;
+	
+	@Column(length = 512, nullable = false, name = "short_description")
+	private String shortDescription;
+	
+	@Column(length = 4096, nullable = false, name = "full_description")
+	private String fullDescription;
+	
+	@Column(name = "created_time")
+	private Date createdTime;
+	
+	@Column(name = "updated_time")
+	private Date updatedTime;
+	
+	private boolean enabled;
+	
+	@Column(name = "in_stock")
+	private boolean inStock;
+	
+	private float cost;
+	
+	private float price;
+	
+	@Column(name = "discount_percent")
+	private float discountPercent;
+	
+	private float length;
+	private float width;
+	private float height;
+	private float weight;
+	
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private Category category;
 
-    @Column(unique = true, length = 256, nullable = false)
-    private String name;
+	@ManyToOne
+	@JoinColumn(name = "brand_id")	
+	private Brand brand;
 
-    @Column(unique = true, length = 256, nullable = false)
-    private String alias;
+	public Long getId() {
+		return id;
+	}
 
-    @Column(length = 512, nullable = false, name = "short_description")
-    private String shortDescription;
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    @Column(length = 4096, nullable = false, name = "full_description")
-    private String fullDescription;
+	public String getName() {
+		return name;
+	}
 
-    @Column(name = "created_time")
-    private Date createdTime;
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    @Column(name = "updated_time")
-    private Date updatedTime;
+	public String getAlias() {
+		return alias;
+	}
 
-    private boolean enabled;
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
 
-    @Column(name = "in_stock")
-    private boolean inStock;
+	public String getShortDescription() {
+		return shortDescription;
+	}
 
-    private float cost;
+	public void setShortDescription(String shortDescription) {
+		this.shortDescription = shortDescription;
+	}
 
-    private float price;
+	public String getFullDescription() {
+		return fullDescription;
+	}
 
-    @Column(name = "discount_percent")
-    private float discountPercent;
+	public void setFullDescription(String fullDescription) {
+		this.fullDescription = fullDescription;
+	}
 
-    private float length;
-    private float width;
-    private float height;
-    private float weight;
+	public Date getCreatedTime() {
+		return createdTime;
+	}
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+	public void setCreatedTime(Date createdTime) {
+		this.createdTime = createdTime;
+	}
 
-    @ManyToOne
-    @JoinColumn(name = "brand_id")
-    private Brand brand;
+	public Date getUpdatedTime() {
+		return updatedTime;
+	}
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
+	public void setUpdatedTime(Date updatedTime) {
+		this.updatedTime = updatedTime;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public boolean isInStock() {
+		return inStock;
+	}
+
+	public void setInStock(boolean inStock) {
+		this.inStock = inStock;
+	}
+
+	public float getCost() {
+		return cost;
+	}
+
+	public void setCost(float cost) {
+		this.cost = cost;
+	}
+
+	public float getPrice() {
+		return price;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
+	}
+
+	public float getDiscountPercent() {
+		return discountPercent;
+	}
+
+	public void setDiscountPercent(float discountPercent) {
+		this.discountPercent = discountPercent;
+	}
+
+	public float getLength() {
+		return length;
+	}
+
+	public void setLength(float length) {
+		this.length = length;
+	}
+
+	public float getWidth() {
+		return width;
+	}
+
+	public void setWidth(float width) {
+		this.width = width;
+	}
+
+	public float getHeight() {
+		return height;
+	}
+
+	public void setHeight(float height) {
+		this.height = height;
+	}
+
+	public float getWeight() {
+		return weight;
+	}
+
+	public void setWeight(float weight) {
+		this.weight = weight;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public Brand getBrand() {
+		return brand;
+	}
+
+	public void setBrand(Brand brand) {
+		this.brand = brand;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + "]";
+	}
+	
+		
 }

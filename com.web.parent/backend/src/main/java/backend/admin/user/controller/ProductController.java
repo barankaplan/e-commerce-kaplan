@@ -6,6 +6,7 @@ import backend.admin.user.service.BrandService;
 import backend.admin.user.service.ProductService;
 import common.data.entity.Brand;
 import common.data.entity.Product;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,14 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class ProductController {
-	 private final ProductService productService;
-	private final  BrandService brandService;
-
-	public ProductController(ProductService productService, BrandService brandService) {
-		this.productService = productService;
-		this.brandService = brandService;
-	}
-
+	@Autowired private ProductService productService;
+	@Autowired private BrandService brandService;
+	
 	@GetMapping("/products")
 	public String listAll(Model model) {
 		List<Product> listProducts = productService.listAll();
