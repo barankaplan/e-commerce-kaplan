@@ -9,15 +9,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CategoryRestController {
 
-     private final CategoryService categoryService;
+    private final CategoryService categoryService;
+
 
     public CategoryRestController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
+
     @PostMapping("/categories/check_unique")
-    public String checkUnique(@Param("categoryId")Long id,@Param("name")String name,
-                              @Param("alias") String alias){
-        return categoryService.checkUnique(id,name,alias);
+    public String checkUnique(@Param("categoryId") Long id, @Param("name") String name,
+                              @Param("alias") String alias) {
+        return categoryService.checkUnique(id, name, alias);
 
     }
+
 }

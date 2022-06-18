@@ -45,6 +45,7 @@ public class ProductController {
 	
 	@PostMapping("/products/save")
 	public String saveProduct(Product product) {
+		productService.save(product);
 		System.out.println("Product Name: " + product.getName());
 		System.out.println("Brand ID: " + product.getBrand().getId());
 		System.out.println("Category ID: " + product.getCategory().getCategoryId());

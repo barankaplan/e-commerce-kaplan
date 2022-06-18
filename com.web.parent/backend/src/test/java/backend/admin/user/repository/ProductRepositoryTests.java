@@ -11,7 +11,6 @@ import common.data.entity.Product;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
@@ -25,7 +24,7 @@ import javax.annotation.Resource;
 class ProductRepositoryTests {
 
     @Autowired
-    private ProductRepository repo;
+    private ProductRepository productRepository;
 
     @Resource
     private TestEntityManager testEntityManager;
@@ -52,7 +51,7 @@ class ProductRepositoryTests {
         product.setCreatedTime(new Date());
         product.setUpdatedTime(new Date());
 
-        Product savedProduct = repo.save(product);
+        Product savedProduct = productRepository.save(product);
 
         assertThat(savedProduct).isNotNull();
         assertThat(savedProduct.getId()).isGreaterThan(0);
@@ -60,7 +59,7 @@ class ProductRepositoryTests {
 
     @Test
     void testListAllProducts() {
-        Iterable<Product> iterableProducts = repo.findAll();
+        Iterable<Product> iterableProducts = productRepository.findAll();
 
         iterableProducts.forEach(System.out::println);
     }
@@ -68,7 +67,7 @@ class ProductRepositoryTests {
     @Test
     void testGetProduct() {
         Long id = 1L;
-        Product product = repo.findById(id).get();
+        Product product = productRepository.findById(id).get();
         System.out.println(product);
 
         assertThat(product).isNotNull();
@@ -77,10 +76,10 @@ class ProductRepositoryTests {
     @Test
     void testUpdateProduct() {
         Long id = 1L;
-        Product product = repo.findById(id).get();
+        Product product = productRepository.findById(id).get();
         product.setPrice(499);
 
-        repo.save(product);
+        productRepository.save(product);
 
         Product updatedProduct = testEntityManager.find(Product.class, id);
 
@@ -90,9 +89,9 @@ class ProductRepositoryTests {
     @Test
     void testDeleteProduct() {
         Long id = 1L;
-        repo.deleteById(id);
+        productRepository.deleteById(id);
 
-        Optional<Product> result = repo.findById(id);
+        Optional<Product> result = productRepository.findById(id);
 
         assertThat(!result.isPresent());
     }

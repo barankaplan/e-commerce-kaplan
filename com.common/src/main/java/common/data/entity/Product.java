@@ -2,14 +2,7 @@ package common.data.entity;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "products")
@@ -24,10 +17,10 @@ public class Product {
 	@Column(unique = true, length = 256, nullable = false)
 	private String alias;
 	
-	@Column(length = 512, nullable = false, name = "short_description")
+	@Column(length = 512, name = "short_description")
 	private String shortDescription;
 	
-	@Column(length = 4096, nullable = false, name = "full_description")
+	@Column(length = 4096, name = "full_description")
 	private String fullDescription;
 	
 	@Column(name = "created_time")
