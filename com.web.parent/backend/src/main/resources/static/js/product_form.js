@@ -60,7 +60,7 @@ function addNextExtraImageSection(index) {
 			title="Remove this image"></a>
 	`;
 	
-	$("#divProductImages").append(htmlExtraImage);
+	$("# divProductImages").append(htmlExtraImage);
 	
 	$("#extraImageHeader" + (index - 1)).append(htmlLinkRemove);
 	
