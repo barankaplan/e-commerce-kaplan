@@ -98,7 +98,7 @@ public class ProductController {
         for (int count = 0; count < detailNames.length; count++) {
             String name = detailNames[count];
             String value = detailValues[count];
-            Long id = (long) Integer.parseInt(detailIDs[count]);
+            long id =  Integer.parseInt(detailIDs[count]);
 
             if (id != 0) {
                 product.addDetail(id, name, value);
