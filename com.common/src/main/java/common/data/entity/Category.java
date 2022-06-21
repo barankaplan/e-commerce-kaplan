@@ -133,7 +133,9 @@ public class Category {
         return allParentIDs;
     }
 
+    //setAllParentIDs
     public void setAllParentIDs(String allParentIDs) {
         this.allParentIDs = allParentIDs;
     }
+    
 }
