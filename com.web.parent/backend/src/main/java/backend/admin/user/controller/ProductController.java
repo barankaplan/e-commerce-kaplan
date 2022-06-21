@@ -9,16 +9,16 @@ import java.util.List;
 import java.util.Set;
 
 import backend.admin.FileUploadUtil;
-import backend.admin.user.exceptions.CategoryNotFoundException;
 import backend.admin.user.exceptions.ProductNotFoundException;
 import backend.admin.user.service.BrandService;
+import backend.admin.user.service.CategoryService;
 import backend.admin.user.service.ProductService;
 import common.data.entity.Brand;
+import common.data.entity.Category;
 import common.data.entity.Product;
 import common.data.entity.ProductImage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -36,10 +36,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class ProductController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
 
-    @Autowired
-    private ProductService productService;
-    @Autowired
-    private BrandService brandService;
+    private final ProductService productService;
+    private final BrandService brandService;
+    private final CategoryService categoryService;
+
+    public ProductController(ProductService productService, BrandService brandService, CategoryService categoryService) {
+        this.productService = productService;
+        this.brandService = brandService;
+        this.categoryService = categoryService;
+    }
+
 
 //    @GetMapping("/products")
 //    public String listAll(Model model) {
@@ -98,6 +104,7 @@ public class ProductController {
 
         return "redirect:/products";
     }
+
     private void setProductDetails(String[] detailIDs, String[] detailNames,
                                    String[] detailValues, Product product) {
         if (detailNames == null || detailNames.length == 0) return;
@@ -105,7 +112,7 @@ public class ProductController {
         for (int count = 0; count < detailNames.length; count++) {
             String name = detailNames[count];
             String value = detailValues[count];
-            long id =  Integer.parseInt(detailIDs[count]);
+            long id = Integer.parseInt(detailIDs[count]);
 
             if (id != 0) {
                 product.addDetail(id, name, value);
@@ -145,6 +152,7 @@ public class ProductController {
             }
         }
     }
+
     private void deleteExtraImagesWeredRemovedOnForm(Product product) {
         String extraImageDir = "../product-images/" + product.getId() + "/extras";
         Path dirPath = Paths.get(extraImageDir);
@@ -306,6 +314,7 @@ public class ProductController {
     ) {
         Page<Product> page = productService.listByPage(pageNum, sortField, sortDir, keyword);
         List<Product> listProducts = page.getContent();
+        List<Category> listCategories = categoryService.listCategoriesUsedInForm();
 
         long startCount = (long) (pageNum - 1) * ProductService.PRODUCTS_PER_PAGE + 1;
         long endCount = startCount + ProductService.PRODUCTS_PER_PAGE - 1;
@@ -325,6 +334,8 @@ public class ProductController {
         model.addAttribute("reverseSortDir", reverseSortDir);
         model.addAttribute("keyword", keyword);
         model.addAttribute("listProducts", listProducts);
+        model.addAttribute("listCategories", listCategories);
+
 
         return "products/products";
     }
