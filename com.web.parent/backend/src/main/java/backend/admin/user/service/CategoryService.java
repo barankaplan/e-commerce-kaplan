@@ -157,16 +157,27 @@ public class CategoryService {
         }
     }
 
-    public Category save(Category category) {
-        return categoryRepository.save(category);
-    }
-
+//    public Category save(Category category) {
+//        return categoryRepository.save(category);
+//    }
+//
     public Category get(Long id) throws CategoryNotFoundException {
         try {
             return categoryRepository.findById(id).get();
         } catch (NoSuchElementException ex) {
             throw new CategoryNotFoundException("Couldn't find any category with ID: " + id);
         }
+    }
+
+    public Category save(Category category) {
+        Category parent = category.getParent();
+        if (parent != null) {
+            String allParentIds = parent.getAllParentIDs() == null ? "-" : parent.getAllParentIDs();
+            allParentIds += String.valueOf(parent.getCategoryId()) + "-";
+            category.setAllParentIDs(allParentIds);
+        }
+
+        return categoryRepository.save(category);
     }
 
     public String checkUnique(Long id, String name, String alias) {

@@ -64,7 +64,7 @@ public class CategoryController {
         } else {
             categoryService.save(category);
         }
-        redirectAttributes.addFlashAttribute("message", "The category has been saved" +
+        redirectAttributes.addFlashAttribute("message", "The category has been saved " +
                 "successfully !");
         return "redirect:/categories";
 
