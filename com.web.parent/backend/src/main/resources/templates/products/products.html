@@ -42,6 +42,8 @@
             </button>
         </form>
         <div th:if="${message != null}" class="alert alert-success text-center">
+            [[${message}]]
+        </div>
         </div>
 
 
@@ -94,7 +96,7 @@
                     </th:block>
 
                     <td>
-                        <a class="fas fa-file-alt fa-2x icon-green link-detail"
+                        <a class="fas fa-file-alt fa-2x icon-blue link-detail"
                            th:href="@{'/products/detail/' + ${product.id}}"
                            title="View details of this product"
                         ></a>
@@ -124,7 +126,7 @@
                         <a class="link-detail" th:href="@{'/products/detail/' + ${product.id}}">[[${product.shortName}]]</a>
                     </div>
                     <div class="mt-2">
-                        <a class="fas fa-file-alt fa-2x icon-green link-detail"
+                        <a class="fas fa-file-alt fa-2x icon-blue link-detail"
                            th:href="@{'/products/detail/' + ${product.id}}"
                         ></a>
 
